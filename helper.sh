@@ -85,7 +85,7 @@ function build {
     fi
 
     echo 'Started creating image...'
-    docker build -t alex_dwt/remote-camera-control $WORK_DIR
+    docker build -t alex_dwt/remote-camera-control -f Dockerfile-$MACHINE_ARCH $WORK_DIR
     echo 'Done!'
 }
 
@@ -100,11 +100,11 @@ function start {
 
     docker rm -f alex-dwt-remote-camera-control >/dev/null 2>&1
 
-    docker run  \
+    docker run -d \
         -p $1:80 \
-        -v $WORK_DIR/server:/remote-camera-control \
         $(find /dev/ 2>/dev/null | egrep "/dev/video*" | xargs -I {} printf "--device={}:{} ") \
-        --name alex-dwt-remote-camera-control alex_dwt/remote-camera-control
+        --name alex-dwt-remote-camera-control \
+        alex_dwt/remote-camera-control >/dev/null 2>&1
 
     if [ $? -ne 0 ]
     then
