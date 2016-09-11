@@ -7,12 +7,10 @@
 'use strict';
 
 import express from 'express';
-import bodyParser from 'body-parser';
 import HttpException from './http_exception'
 import Camera from './camera'
 
 let app = express();
-app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');

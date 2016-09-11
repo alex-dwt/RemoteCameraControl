@@ -15,8 +15,8 @@ ENV OUT_PARAM "output_http.so -p 6100"
 COPY ./build/* /mjpg-streamer/
 RUN chmod +x /mjpg-streamer/*
 
-WORKDIR /remote-camera-control
-COPY ./server/* /remote-camera-control/
+WORKDIR /srv
+COPY ./server/* /srv/
 RUN npm install
 
 CMD ["npm","start"]

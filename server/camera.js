@@ -24,11 +24,15 @@ export default class {
 	}
 
 	static start() {
-		execSync('pkill ' + FILE + '; exit 0');
-		execSync('/bin/sh -c "' + PATH + '/' + FILE + ' -b -i \\"$IN_PARAM\\" -o \\"$OUT_PARAM\\""');
+		kill();
+		execSync(`/bin/sh -c "${PATH}/${FILE} -b -i \\"$IN_PARAM\\" -o \\"$OUT_PARAM\\""`);
 	}
 
 	static stop() {
-		execSync('pkill ' + FILE + '; exit 0');
+		kill();
 	}
+}
+
+function kill() {
+	execSync(`pkill ${FILE}; exit 0`);
 }
