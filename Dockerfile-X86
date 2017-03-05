@@ -9,14 +9,14 @@ RUN apt-get update && apt-get install -y nodejs npm libjpeg8-dev
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 ENV LD_LIBRARY_PATH /mjpg-streamer/
-ENV IN_PARAM "input_uvc.so -d /dev/video0 -y"
-ENV OUT_PARAM "output_http.so -p 6100"
-
 COPY ./build/* /mjpg-streamer/
 RUN chmod +x /mjpg-streamer/*
 
 WORKDIR /srv
 COPY ./server/* /srv/
 RUN npm install
+
+ENV IN_PARAM "input_uvc.so -d /dev/video0 -y"
+ENV OUT_PARAM "output_http.so -p 6100"
 
 CMD ["npm","start"]
